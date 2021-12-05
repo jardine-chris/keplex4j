@@ -45,6 +45,6 @@ public class Client {
     }
 
     public List<Directory> getOnDeck(String key) {
-        return requestService.getOnDeck();
+        return requestService.getOnDeck(key);
     }
 }
