@@ -1,7 +1,8 @@
 package com.keplux.keplex4j.components;
 
+import com.keplux.keplex4j.services.FilterUri;
+import com.keplux.keplex4j.services.LibraryUri;
 import com.keplux.keplex4j.services.RequestService;
-import com.keplux.keplex4j.services.LibraryUris;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +19,24 @@ public class Client {
     @Autowired
     private RequestService requestService;
 
-    public List<Directory> getContent(LibraryUris libraryUris) {
-        return requestService.getContent(libraryUris);
+    public List<Directory> getContent(LibraryUri libraryUri) {
+        return requestService.getContent(libraryUri);
     }
 
-    public List<Directory> getContent(LibraryUris libraryUris, String key) {
-        return requestService.getContent(libraryUris, key);
+    public List<Directory> getContent(String key) {
+        return requestService.getContent(key);
+    }
+
+    public List<Directory> getContent(String key,
+                                      FilterUri filterUri) {
+        return requestService.getContent(key, filterUri);
+    }
+
+    public List<Directory> getRecentlyAdded() {
+        return requestService.getRecentlyAdded();
+    }
+
+    public List<Directory> getRecentlyAdded(String key) {
+        return requestService.getRecentlyAdded(key);
     }
 }

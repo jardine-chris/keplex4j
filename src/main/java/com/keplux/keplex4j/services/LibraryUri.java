@@ -6,17 +6,15 @@ package com.keplux.keplex4j.services;
  * @author Chris Jardine
  * @version 0.1
  */
-public enum FilterUris {
-    ALL ("/all"),
-    UNWATCHED ( "/unwatched"),
-    NEWEST ( "/newest"),
-    RECENTLY_ADDED ( "/recentlyAdded"),
-    RECENTLY_VIEWED ( "/recentlyViewed"),
-    ON_DECK ( "/onDeck");
+public enum LibraryUri {
+    BASE ("/library"),
+    SECTIONS ("library/sections/"),
+    RECENTLY_ADDED ("library/recentlyAdded"),
+    ON_DECK ("library/onDeck");
 
     private String uri;
 
-    FilterUris(String uri) {
+    LibraryUri(String uri) {
         this.uri = uri;
     }
 
