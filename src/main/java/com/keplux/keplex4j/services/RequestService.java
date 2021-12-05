@@ -62,12 +62,11 @@ public class RequestService {
     /**
      * Retrieve a list of directories referenced in the resource.
      *
-     * @param libraryUri The location of the resource being requested.
      * @return A list of directories.
      */
-    public List<Directory> getContent(LibraryUri libraryUri) {
+    public List<Directory> getContent() {
         PlexUri uri = PlexUri.builder()
-                .libraryUri(libraryUri)
+                .libraryUri(LibraryUri.BASE)
                 .build();
         return getRequest(uri).getDirectory();
     }

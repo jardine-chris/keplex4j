@@ -19,8 +19,8 @@ public class Client {
     @Autowired
     private RequestService requestService;
 
-    public List<Directory> getContent(LibraryUri libraryUri) {
-        return requestService.getContent(libraryUri);
+    public List<Directory> getContent() {
+        return requestService.getContent();
     }
 
     public List<Directory> getContent(String key) {
