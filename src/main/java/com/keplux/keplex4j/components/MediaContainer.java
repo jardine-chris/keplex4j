@@ -1,10 +1,8 @@
 package com.keplux.keplex4j.components;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.keplux.keplex4j.services.LibraryService;
+import com.keplux.keplex4j.services.ClientService;
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -13,9 +11,5 @@ import java.util.List;
 @ToString
 public class MediaContainer {
     @JsonProperty("MediaContainer")
-    private LibraryService libraryService;
-
-    public List<String> getDirectories() {
-        return libraryService.getDirectoryKeys();
-    }
+    private ClientService clientService;
 }

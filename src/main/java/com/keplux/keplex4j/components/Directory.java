@@ -1,6 +1,7 @@
 package com.keplux.keplex4j.components;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 /**
  * {Description}
@@ -13,6 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Component
 public class Directory {
     private String key;
     private String title;
