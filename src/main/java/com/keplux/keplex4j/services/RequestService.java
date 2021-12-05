@@ -62,7 +62,7 @@ public class RequestService {
      *
      * @return A directory of resources in the base library.
      */
-    public List<Directory> getContent() {
+    public List<Directory> getBaseDirectories() {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.BASE)
                 .build();
@@ -76,7 +76,7 @@ public class RequestService {
      * @param key The key of the section being searched.
      * @return A directory of resources in the specified section.
      */
-    public List<Directory> getContent(String key) {
+    public List<Directory> getSectionDirectories(String key) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
                 .key(key)
@@ -92,8 +92,8 @@ public class RequestService {
      * @param filterUri The filter being applied to the section results.
      * @return A filtered directory of resources in the specified section.
      */
-    public List<Directory> getContent(String key,
-                                      FilterUri filterUri) {
+    public List<Directory> getSection(String key,
+                                              FilterUri filterUri) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
                 .key(key)
