@@ -8,8 +8,9 @@ package com.keplux.keplex4j.services;
  */
 public enum Uri {
     LIBRARY ("/library"),
-    LIBRARY_SECTIONS ("/library/sections"),
-    LIBRARY_SECTIONS_BY_KEY ("/library/sections/");
+    SECTIONS ("library/sections/"),
+    RECENTLY_ADDED ("library/recentlyAdded/"),
+    ON_DECK ("library/onDeck/");
 
     private String uri;
 

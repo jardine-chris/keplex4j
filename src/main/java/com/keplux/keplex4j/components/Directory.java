@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Component
-public class Content {
+public class Directory {
     private String key;
     private String title;
 }

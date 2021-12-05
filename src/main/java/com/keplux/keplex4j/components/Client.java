@@ -18,11 +18,11 @@ public class Client {
     @Autowired
     private RequestService requestService;
 
-    public List<Content> getContent(Uri uri) {
+    public List<Directory> getContent(Uri uri) {
         return requestService.getContent(uri);
     }
 
-    public List<Content> getContent(Uri uri, String key) {
+    public List<Directory> getContent(Uri uri, String key) {
         return requestService.getContent(uri, key);
     }
 }

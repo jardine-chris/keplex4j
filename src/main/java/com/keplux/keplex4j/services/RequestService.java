@@ -2,7 +2,7 @@ package com.keplux.keplex4j.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keplux.keplex4j.components.Response;
-import com.keplux.keplex4j.components.Content;
+import com.keplux.keplex4j.components.Directory;
 import com.keplux.keplex4j.config.ClientConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,7 +54,7 @@ public class RequestService {
                 .block();
         logger.info(String.format("[GET - \"%s\"] -> [RESPONSE - %s]",
                 uri.get(),
-                response.getContent()));
+                response.getDirectory()));
 
         return response;
     }
@@ -65,14 +65,14 @@ public class RequestService {
      * @param uri The location of the resource being requested.
      * @return A list of directories.
      */
-    public List<Content> getContent(Uri uri) {
+    public List<Directory> getContent(Uri uri) {
         Response response = getRequest(uri);
-        return response.getContent();
+        return response.getDirectory();
     }
 
-    public List<Content> getContent(Uri uri, String key) {
+    public List<Directory> getContent(Uri uri, String key) {
         uri.set(uri.get() + key);
         Response response = getRequest(uri);
-        return response.getContent();
+        return response.getDirectory();
     }
 }

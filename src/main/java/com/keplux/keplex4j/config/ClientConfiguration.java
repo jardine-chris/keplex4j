@@ -18,7 +18,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * <p>A container holding the data necessary for connecting to your local Plex
  * Media Server.
  * Currently, credentials are stored in the {@code application.properties}
- * file.</p>
+ * file with the prefix {@code plex.config}.</p>
  * <br />
  * <h2>Credentials</h2>
  * <table>
