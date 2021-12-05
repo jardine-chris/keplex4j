@@ -1,6 +1,5 @@
 package com.keplux.keplex4j.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keplux.keplex4j.components.Directory;
 import com.keplux.keplex4j.components.Response;
 import com.keplux.keplex4j.config.ClientConfiguration;
@@ -42,7 +41,6 @@ public class RequestService {
      * @return The response transformed into a POJO.
      */
     private Response getRequest(PlexUri uri) {
-        ObjectMapper mapper = new ObjectMapper();
         Response response = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
