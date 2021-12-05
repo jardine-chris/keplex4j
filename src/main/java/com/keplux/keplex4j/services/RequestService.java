@@ -42,7 +42,6 @@ public class RequestService {
      * @return The response transformed into a POJO.
      */
     private Response getRequest(PlexUri uri) {
-        ObjectMapper mapper = new ObjectMapper();
         Response response = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
