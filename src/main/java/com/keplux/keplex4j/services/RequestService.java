@@ -105,4 +105,20 @@ public class RequestService {
                 .build();
         return getRequest(uri).getDirectory();
     }
+
+    public List<Directory> getOnDeck() {
+        PlexUri uri = PlexUri.builder()
+                .libraryUri(LibraryUri.ON_DECK)
+                .build();
+        return getRequest(uri).getDirectory();
+    }
+
+    public List<Directory> getOnDeck(String key) {
+        PlexUri uri = PlexUri.builder()
+                .libraryUri(LibraryUri.SECTIONS)
+                .key(key)
+                .filterUri(FilterUri.ON_DECK)
+                .build();
+        return getRequest(uri).getDirectory();
+    }
 }
