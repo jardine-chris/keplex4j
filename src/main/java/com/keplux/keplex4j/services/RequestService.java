@@ -1,8 +1,8 @@
 package com.keplux.keplex4j.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.keplux.keplex4j.components.Response;
 import com.keplux.keplex4j.components.Directory;
+import com.keplux.keplex4j.components.Response;
 import com.keplux.keplex4j.config.ClientConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,22 +38,22 @@ public class RequestService {
     /**
      * Helper method to reduce code duplication.
      *
-     * @param libraryUris The location of the resource being requested.
+     * @param uri The location of the resource being requested.
      * @return The response transformed into a POJO.
      */
-    private Response getRequest(LibraryUris libraryUris) {
+    private Response getRequest(PlexUri uri) {
         ObjectMapper mapper = new ObjectMapper();
         Response response = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(libraryUris.get())
+                        .path(uri.get())
                         .queryParam("X-Plex-Token", config.getToken())
                         .build())
                 .retrieve()
                 .bodyToMono(Response.class)
                 .block();
         logger.info(String.format("[GET - \"%s\"] -> [RESPONSE - %s]",
-                libraryUris.get(),
+                uri.get(),
                 response.getDirectory()));
 
         return response;
@@ -62,17 +62,47 @@ public class RequestService {
     /**
      * Retrieve a list of directories referenced in the resource.
      *
-     * @param libraryUris The location of the resource being requested.
+     * @param libraryUri The location of the resource being requested.
      * @return A list of directories.
      */
-    public List<Directory> getContent(LibraryUris libraryUris) {
-        Response response = getRequest(libraryUris);
-        return response.getDirectory();
+    public List<Directory> getContent(LibraryUri libraryUri) {
+        PlexUri uri = PlexUri.builder()
+                .libraryUri(libraryUri)
+                .build();
+        return getRequest(uri).getDirectory();
     }
 
-    public List<Directory> getContent(LibraryUris libraryUris, String key) {
-        libraryUris.set(libraryUris.get() + key);
-        Response response = getRequest(libraryUris);
-        return response.getDirectory();
+    public List<Directory> getContent(String key) {
+        PlexUri uri = PlexUri.builder()
+                .libraryUri(LibraryUri.SECTIONS)
+                .key(key)
+                .build();
+        return getRequest(uri).getDirectory();
+    }
+
+    public List<Directory> getContent(String key,
+                                      FilterUri filterUri) {
+        PlexUri uri = PlexUri.builder()
+                .libraryUri(LibraryUri.SECTIONS)
+                .key(key)
+                .filterUri(filterUri)
+                .build();
+        return getRequest(uri).getDirectory();
+    }
+
+    public List<Directory> getRecentlyAdded() {
+        PlexUri uri = PlexUri.builder()
+                .libraryUri(LibraryUri.RECENTLY_ADDED)
+                .build();
+        return getRequest(uri).getDirectory();
+    }
+
+    public List<Directory> getRecentlyAdded(String key) {
+        PlexUri uri = PlexUri.builder()
+                .libraryUri(LibraryUri.SECTIONS)
+                .key(key)
+                .filterUri(FilterUri.RECENTLY_ADDED)
+                .build();
+        return getRequest(uri).getDirectory();
     }
 }
