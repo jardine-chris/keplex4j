@@ -1,6 +1,6 @@
 package com.keplux.keplex4j.services;
 
-import com.keplux.keplex4j.components.Directory;
+import com.keplux.keplex4j.components.Content;
 import com.keplux.keplex4j.components.MediaContainer;
 import com.keplux.keplex4j.config.ClientConfiguration;
 import org.apache.commons.logging.Log;
@@ -49,7 +49,7 @@ public class RequestService {
                 .block();
         logger.info(String.format("[GET - \"%s\"] -> [RESPONSE - %s]",
                 uri.get(),
-                container.getClientService().getDirectories()));
+                container.getClientService().getContent()));
 
         return container;
     }
@@ -60,8 +60,14 @@ public class RequestService {
      * @param uri The location of the resource being requested.
      * @return A list of directories.
      */
-    public List<Directory> getDirectories(Uri uri) {
+    public List<Content> getContent(Uri uri) {
         MediaContainer container = getRequest(uri);
-        return container.getClientService().getDirectories();
+        return container.getClientService().getContent();
+    }
+
+    public List<Content> getContent(Uri uri, String key) {
+        uri.set(uri.get() + key);
+        MediaContainer container = getRequest(uri);
+        return container.getClientService().getContent();
     }
 }

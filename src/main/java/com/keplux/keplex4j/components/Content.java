@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @ToString
 @Component
-public class Directory {
+public class Content {
     private String key;
     private String title;
 }

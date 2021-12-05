@@ -9,7 +9,7 @@ package com.keplux.keplex4j.services;
 public enum Uri {
     LIBRARY ("/library"),
     LIBRARY_SECTIONS ("/library/sections"),
-    LIBRARY_SECTIONS_ALL ("/library/sections/all");
+    LIBRARY_SECTIONS_BY_KEY ("/library/sections/");
 
     private String uri;
 
@@ -19,5 +19,9 @@ public enum Uri {
 
     public String get() {
         return uri;
+    }
+
+    public void set(String uri) {
+        this.uri = uri;
     }
 }

@@ -5,7 +5,6 @@ import com.keplux.keplex4j.services.Uri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,7 +18,11 @@ public class Client {
     @Autowired
     private RequestService requestService;
 
-    public List<Directory> getDirectories(Uri uri) {
-        return requestService.getDirectories(uri);
+    public List<Content> getContent(Uri uri) {
+        return requestService.getContent(uri);
+    }
+
+    public List<Content> getContent(Uri uri, String key) {
+        return requestService.getContent(uri, key);
     }
 }
