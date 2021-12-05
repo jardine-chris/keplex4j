@@ -60,9 +60,9 @@ public class RequestService {
     }
 
     /**
-     * Retrieve a list of directories referenced in the resource.
+     * Retrieve a list of directories in the base library resource.
      *
-     * @return A list of directories.
+     * @return A directory of resources in the base library.
      */
     public List<Directory> getContent() {
         PlexUri uri = PlexUri.builder()
@@ -71,6 +71,13 @@ public class RequestService {
         return getRequest(uri).getDirectory();
     }
 
+    /**
+     * Retrieve a list of directories in the section resource with the
+     * specified key.
+     *
+     * @param key The key of the section being searched.
+     * @return A directory of resources in the specified section.
+     */
     public List<Directory> getContent(String key) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
@@ -79,6 +86,14 @@ public class RequestService {
         return getRequest(uri).getDirectory();
     }
 
+    /**
+     * Retrieve a list of directories in the section resource with the specified
+     * key and filter.
+     *
+     * @param key       The key of the section being searched.
+     * @param filterUri The filter being applied to the section results.
+     * @return A filtered directory of resources in the specified section.
+     */
     public List<Directory> getContent(String key,
                                       FilterUri filterUri) {
         PlexUri uri = PlexUri.builder()
@@ -89,6 +104,14 @@ public class RequestService {
         return getRequest(uri).getDirectory();
     }
 
+    /**
+     * Retrieve a list of directories in the base library resource that have
+     * been
+     * recently added.
+     *
+     * @return A directory of resources that have been recently added to the
+     * base library.
+     */
     public List<Directory> getRecentlyAdded() {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.RECENTLY_ADDED)
@@ -96,6 +119,14 @@ public class RequestService {
         return getRequest(uri).getDirectory();
     }
 
+    /**
+     * Retrieve a list of directories in the section resource with the specified
+     * key that have been recently added.
+     *
+     * @param key The key of the section being searched.
+     * @return A directory of resources that have been recently added to the
+     * specified section.
+     */
     public List<Directory> getRecentlyAdded(String key) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
@@ -105,6 +136,12 @@ public class RequestService {
         return getRequest(uri).getDirectory();
     }
 
+    /**
+     * Retrieve a list of directories in the base library resource that are
+     * on deck.
+     *
+     * @return A directory of resources that are on deck in the base library.
+     */
     public List<Directory> getOnDeck() {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.ON_DECK)
@@ -112,6 +149,15 @@ public class RequestService {
         return getRequest(uri).getDirectory();
     }
 
+    /**
+     * Retrieve a list of directories in the section resource with the
+     * specified key
+     * that are on deck.
+     *
+     * @param key The key of the section being searched.
+     * @return A directory of resources that are on deck in the specified
+     * section.
+     */
     public List<Directory> getOnDeck(String key) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
