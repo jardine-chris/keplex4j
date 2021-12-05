@@ -1,5 +1,7 @@
 package com.keplux.keplex4j.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
@@ -85,7 +89,18 @@ public class ClientConfiguration {
      */
     @Bean
     public WebClient webClient() {
+        // Customize the WebClient to deserialize the root object directly.
+        ObjectMapper mapper = new ObjectMapper()
+                .findAndRegisterModules()
+                .enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
+        ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
+                .codecs(configurer -> configurer.defaultCodecs()
+                        .jackson2JsonDecoder(new Jackson2JsonDecoder(mapper)))
+                .build();
+
+        // Build the custom WebClient.
         return WebClient.builder()
+                .exchangeStrategies(exchangeStrategies)
                 .baseUrl(String.format("http://%s:%s", host, port))
                 .defaultHeader(HttpHeaders.ACCEPT,
                         MediaType.APPLICATION_JSON_VALUE)

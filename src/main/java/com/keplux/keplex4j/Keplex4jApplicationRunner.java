@@ -16,6 +16,6 @@ public class Keplex4jApplicationRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        List<Content> content = client.getContent(Uri.LIBRARY_SECTIONS_BY_KEY, "1/recentlyAdded");
+        List<Content> content = client.getContent(Uri.LIBRARY_SECTIONS_BY_KEY, "1/newest");
     }
 }

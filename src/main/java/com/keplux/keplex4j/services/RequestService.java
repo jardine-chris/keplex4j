@@ -1,7 +1,8 @@
 package com.keplux.keplex4j.services;
 
-import com.keplux.keplex4j.components.Content;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keplux.keplex4j.components.Response;
+import com.keplux.keplex4j.components.Content;
 import com.keplux.keplex4j.config.ClientConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,8 +19,10 @@ import java.util.List;
  * {@code block()} method. Therefore, all requests are
  * <strong>synchronous</strong>.</p>
  *
- * <p>Requests are configured by the {@link ClientConfiguration} class. If you are
- * getting errors, please see the documentation for configuration information.</p>
+ * <p>Requests are configured by the {@link ClientConfiguration} class. If
+ * you are
+ * getting errors, please see the documentation for configuration information
+ * .</p>
  *
  * @author Chris Jardine
  * @version 0.1
@@ -34,11 +37,13 @@ public class RequestService {
 
     /**
      * Helper method to reduce code duplication.
+     *
      * @param uri The location of the resource being requested.
      * @return The response transformed into a POJO.
      */
     private Response getRequest(Uri uri) {
-        Response container = config.webClient()
+        ObjectMapper mapper = new ObjectMapper();
+        Response response = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(uri.get())
@@ -49,9 +54,9 @@ public class RequestService {
                 .block();
         logger.info(String.format("[GET - \"%s\"] -> [RESPONSE - %s]",
                 uri.get(),
-                container.getContainer().getContent()));
+                response.getContent()));
 
-        return container;
+        return response;
     }
 
     /**
@@ -62,12 +67,12 @@ public class RequestService {
      */
     public List<Content> getContent(Uri uri) {
         Response response = getRequest(uri);
-        return response.getContainer().getContent();
+        return response.getContent();
     }
 
     public List<Content> getContent(Uri uri, String key) {
         uri.set(uri.get() + key);
         Response response = getRequest(uri);
-        return response.getContainer().getContent();
+        return response.getContent();
     }
 }
