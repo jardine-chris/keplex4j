@@ -1,7 +1,6 @@
 package com.keplux.keplex4j.components;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.keplux.keplex4j.services.ClientService;
 import lombok.*;
 
 @Getter
@@ -9,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MediaContainer {
+public class Response {
     @JsonProperty("MediaContainer")
-    private ClientService clientService;
+    private Container container;
 }

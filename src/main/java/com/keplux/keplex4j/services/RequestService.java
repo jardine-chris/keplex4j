@@ -1,7 +1,7 @@
 package com.keplux.keplex4j.services;
 
 import com.keplux.keplex4j.components.Content;
-import com.keplux.keplex4j.components.MediaContainer;
+import com.keplux.keplex4j.components.Response;
 import com.keplux.keplex4j.config.ClientConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,19 +37,19 @@ public class RequestService {
      * @param uri The location of the resource being requested.
      * @return The response transformed into a POJO.
      */
-    private MediaContainer getRequest(Uri uri) {
-        MediaContainer container = config.webClient()
+    private Response getRequest(Uri uri) {
+        Response container = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(uri.get())
                         .queryParam("X-Plex-Token", config.getToken())
                         .build())
                 .retrieve()
-                .bodyToMono(MediaContainer.class)
+                .bodyToMono(Response.class)
                 .block();
         logger.info(String.format("[GET - \"%s\"] -> [RESPONSE - %s]",
                 uri.get(),
-                container.getClientService().getContent()));
+                container.getContainer().getContent()));
 
         return container;
     }
@@ -61,13 +61,13 @@ public class RequestService {
      * @return A list of directories.
      */
     public List<Content> getContent(Uri uri) {
-        MediaContainer container = getRequest(uri);
-        return container.getClientService().getContent();
+        Response response = getRequest(uri);
+        return response.getContainer().getContent();
     }
 
     public List<Content> getContent(Uri uri, String key) {
         uri.set(uri.get() + key);
-        MediaContainer container = getRequest(uri);
-        return container.getClientService().getContent();
+        Response response = getRequest(uri);
+        return response.getContainer().getContent();
     }
 }
