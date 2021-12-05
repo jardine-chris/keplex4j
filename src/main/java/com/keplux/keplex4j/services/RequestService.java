@@ -38,22 +38,22 @@ public class RequestService {
     /**
      * Helper method to reduce code duplication.
      *
-     * @param uri The location of the resource being requested.
+     * @param libraryUris The location of the resource being requested.
      * @return The response transformed into a POJO.
      */
-    private Response getRequest(Uri uri) {
+    private Response getRequest(LibraryUris libraryUris) {
         ObjectMapper mapper = new ObjectMapper();
         Response response = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(uri.get())
+                        .path(libraryUris.get())
                         .queryParam("X-Plex-Token", config.getToken())
                         .build())
                 .retrieve()
                 .bodyToMono(Response.class)
                 .block();
         logger.info(String.format("[GET - \"%s\"] -> [RESPONSE - %s]",
-                uri.get(),
+                libraryUris.get(),
                 response.getDirectory()));
 
         return response;
@@ -62,17 +62,17 @@ public class RequestService {
     /**
      * Retrieve a list of directories referenced in the resource.
      *
-     * @param uri The location of the resource being requested.
+     * @param libraryUris The location of the resource being requested.
      * @return A list of directories.
      */
-    public List<Directory> getContent(Uri uri) {
-        Response response = getRequest(uri);
+    public List<Directory> getContent(LibraryUris libraryUris) {
+        Response response = getRequest(libraryUris);
         return response.getDirectory();
     }
 
-    public List<Directory> getContent(Uri uri, String key) {
-        uri.set(uri.get() + key);
-        Response response = getRequest(uri);
+    public List<Directory> getContent(LibraryUris libraryUris, String key) {
+        libraryUris.set(libraryUris.get() + key);
+        Response response = getRequest(libraryUris);
         return response.getDirectory();
     }
 }
