@@ -39,4 +39,12 @@ public class Client {
     public List<Directory> getRecentlyAdded(String key) {
         return requestService.getRecentlyAdded(key);
     }
+
+    public List<Directory> getOnDeck() {
+        return requestService.getOnDeck();
+    }
+
+    public List<Directory> getOnDeck(String key) {
+        return requestService.getOnDeck();
+    }
 }
