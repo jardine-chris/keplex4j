@@ -1,7 +1,8 @@
 package com.keplux.keplex4j.services;
 
-import com.keplux.keplex4j.components.Directory;
-import com.keplux.keplex4j.components.MediaContainer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.keplux.keplex4j.components.Response;
+import com.keplux.keplex4j.components.Content;
 import com.keplux.keplex4j.config.ClientConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,8 +19,10 @@ import java.util.List;
  * {@code block()} method. Therefore, all requests are
  * <strong>synchronous</strong>.</p>
  *
- * <p>Requests are configured by the {@link ClientConfiguration} class. If you are
- * getting errors, please see the documentation for configuration information.</p>
+ * <p>Requests are configured by the {@link ClientConfiguration} class. If
+ * you are
+ * getting errors, please see the documentation for configuration information
+ * .</p>
  *
  * @author Chris Jardine
  * @version 0.1
@@ -34,24 +37,26 @@ public class RequestService {
 
     /**
      * Helper method to reduce code duplication.
+     *
      * @param uri The location of the resource being requested.
      * @return The response transformed into a POJO.
      */
-    private MediaContainer getRequest(Uri uri) {
-        MediaContainer container = config.webClient()
+    private Response getRequest(Uri uri) {
+        ObjectMapper mapper = new ObjectMapper();
+        Response response = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(uri.get())
                         .queryParam("X-Plex-Token", config.getToken())
                         .build())
                 .retrieve()
-                .bodyToMono(MediaContainer.class)
+                .bodyToMono(Response.class)
                 .block();
         logger.info(String.format("[GET - \"%s\"] -> [RESPONSE - %s]",
                 uri.get(),
-                container.getClientService().getDirectories()));
+                response.getContent()));
 
-        return container;
+        return response;
     }
 
     /**
@@ -60,8 +65,14 @@ public class RequestService {
      * @param uri The location of the resource being requested.
      * @return A list of directories.
      */
-    public List<Directory> getDirectories(Uri uri) {
-        MediaContainer container = getRequest(uri);
-        return container.getClientService().getDirectories();
+    public List<Content> getContent(Uri uri) {
+        Response response = getRequest(uri);
+        return response.getContent();
+    }
+
+    public List<Content> getContent(Uri uri, String key) {
+        uri.set(uri.get() + key);
+        Response response = getRequest(uri);
+        return response.getContent();
     }
 }
