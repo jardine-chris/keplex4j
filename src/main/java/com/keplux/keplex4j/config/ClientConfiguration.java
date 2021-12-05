@@ -10,6 +10,48 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
+/**
+ * <p>A container holding the data necessary for connecting to your local Plex
+ * Media Server.
+ * Currently, credentials are stored in the {@code application.properties}
+ * file.</p>
+ * <br />
+ * <h2>Credentials</h2>
+ * <table>
+ *     <tr>
+ *         <th>Name</th>
+ *         <th>Example</th>
+ *         <th>Description</th>
+ *     </tr>
+ *     <tr>
+ *         <td>{@code host    }</td>
+ *         <td>{@code 192.168.0.71}</td>
+ *         <td>The address of your server.</td>
+ *     </tr>
+ *     <tr>
+ *         <td>{@code port    }</td>
+ *         <td>{@code 32400}, default</td>
+ *         <td>The port for your server.</td>
+ *     </tr>
+ *     <tr>
+ *         <td>{@code token   }</td>
+ *         <td>{@code {random-string}    }</td>
+ *         <td>An authorized token for accessing your server.</td>
+ *     </tr>
+ * </table>
+ * <br />
+ * <h2>A Note On Tokens</h2>
+ * <p>Temporary tokens can be found while accessing data from your server. For
+ * further information, please check the Plex support article
+ * <a href="https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/">here</a>.</p>
+ * <p>Permanent tokens are not yet available for this project. This will be
+ * implemented in a future version. However, you can read more on that
+ * <a href="https://forums.plex.tv/t/authenticating-with-plex/609370">here</a>
+ * .</p>
+ *
+ * @author Chris Jardine
+ * @version 0.1
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,6 +66,23 @@ public class ClientConfiguration {
     @Value("${plex.config.token}")
     private String token;
 
+    /**
+     * <p>The basis of the {@code WebClient} is created here. It is managed
+     * by the
+     * Spring IoC container and should only be called in the context of this
+     * library.</p>
+     * <br />
+     * <h2>Basic Requests</h2>
+     * <p>The base url is built from the {@code host}, {@code port}, and
+     * {@code token} fields. Requests can then use the {@code WebClient} and
+     * only have to include the resource URI.</p>
+     * <p>Additionally, the {@code
+     * "ACCEPT"} header is set to {@code "application/json"} as the
+     * Plex API
+     * defaults to XML.</p>
+     *
+     * @return The implementation of the {@code WebClient}.
+     */
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
