@@ -1,3 +1,4 @@
+[![status - in development](https://img.shields.io/badge/progress-in_development-fbcd04)](https://)
 
 # keplex4j
 keplex4j is a Spring-based API client for [Plex Media Server](https://plex.tv). This library allows you to easily connect to your Plex server and make requests without worrying about all the dirty back-end work.
