@@ -23,7 +23,6 @@ Your project and this library should exist in a base folder as follows:
 ## Clone the Repository
 Clone the repository in the root of your folder containing your project:
 ```
-cd ~/{PathToProjectFolder}
 git clone https://github.com/jardine-chris/keplex4j.git
 ```
 
