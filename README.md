@@ -1,6 +1,6 @@
 
 # keplex4j
-keplex4j is a Spring-based API client for Plex Media Server. This library allows you to easily connect to your Plex server and make requests without worrying about all the dirty back-end work.
+keplex4j is a Spring-based API client for [Plex Media Server](https://plex.tv). This library allows you to easily connect to your Plex server and make requests without worrying about all the dirty back-end work.
 
 # Quick Setup
 Feel free to follow this guide if you know what you're doing. If you need help, feel free to go through the [guided setup](#Guided-Setup).
