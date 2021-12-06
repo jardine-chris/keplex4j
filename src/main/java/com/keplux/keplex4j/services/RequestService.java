@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>A service that sends requests to Plex Media Server. This service
@@ -50,10 +51,25 @@ public class RequestService {
                 .retrieve()
                 .bodyToMono(Response.class)
                 .block();
-        logger.info(String.format("[GET - \"%s\"] -> [RESPONSE - %s]",
-                uri.get(),
-                response.getDirectory()));
+        logger.info(String.format("    Response: %s",
+                Objects.requireNonNull(response).getDirectory()));
 
+        return response;
+    }
+
+    private Response getSearchRequest(String query) {
+        Response response = config.webClient()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(LibraryUri.SEARCH.get())
+                        .queryParam("query", query)
+                        .queryParam("X-Plex-Token", config.getToken())
+                        .build())
+                .retrieve()
+                .bodyToMono(Response.class)
+                .block();
+        logger.info(String.format("    Response: %s",
+                Objects.requireNonNull(response).getDirectory()));
         return response;
     }
 
@@ -93,7 +109,7 @@ public class RequestService {
      * @return A filtered directory of resources in the specified section.
      */
     public List<Directory> getSection(String key,
-                                              FilterUri filterUri) {
+                                      FilterUri filterUri) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
                 .key(key)
@@ -163,5 +179,11 @@ public class RequestService {
                 .filterUri(FilterUri.ON_DECK)
                 .build();
         return getRequest(uri).getDirectory();
+    }
+
+    public List<Directory> search(String query) {
+        // Replace spaces with + for the Uri.
+        Response res = getSearchRequest(query.replaceAll(" ", "+"));
+        return res.getDirectory();
     }
 }

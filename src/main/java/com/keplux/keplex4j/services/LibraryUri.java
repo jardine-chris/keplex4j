@@ -8,11 +8,12 @@ package com.keplux.keplex4j.services;
  */
 public enum LibraryUri {
     BASE ("/library"),
-    SECTIONS ("library/sections/"),
-    RECENTLY_ADDED ("library/recentlyAdded"),
-    ON_DECK ("library/onDeck");
+    SECTIONS ("/library/sections/"),
+    RECENTLY_ADDED ("/library/recentlyAdded"),
+    ON_DECK ("/library/onDeck"),
+    SEARCH ("/search");
 
-    private String uri;
+    private final String uri;
 
     LibraryUri(String uri) {
         this.uri = uri;
@@ -20,9 +21,5 @@ public enum LibraryUri {
 
     public String get() {
         return uri;
-    }
-
-    public void set(String uri) {
-        this.uri = uri;
     }
 }

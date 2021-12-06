@@ -46,4 +46,8 @@ public class Client {
     public List<Directory> getOnDeck(String key) {
         return requestService.getOnDeck(key);
     }
+
+    public List<Directory> search(String query) {
+        return requestService.search(query);
+    }
 }
