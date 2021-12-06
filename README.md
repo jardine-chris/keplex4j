@@ -1,6 +1,8 @@
 [![status - in development](https://img.shields.io/badge/progress-in_development-fbcd04)](https://)
 
 # keplex4j
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+
 keplex4j is a Spring-based API client for [Plex Media Server](https://plex.tv). This library allows you to easily connect to your Plex server and make requests without worrying about all the dirty back-end work.
 
 # Quick Setup
@@ -87,3 +89,19 @@ public class DemoController {
 ```
 
 At this point, we can now make requests to our server through `localhost:8080/api`, unless you changed which port Tomcat is using. Swap `8080` for that port.
+
+<div align="center">
+    <img src="https://i.imgur.com/QXdyHgz.png" alt="Keplux logo" width="50%" height="auto" /><br />
+    <hr />
+    <a href="https://www.linkedin.com/in/chris-jardine/">
+        <img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-48.png" alt="LinkedIn logo" />
+    </a>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="https://github.com/jardine-chris">
+        <img src="https://cdn4.iconfinder.com/data/icons/social-media-logos-6/512/71-github-48.png" alt="GitHub logo" />
+    </a>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="https://twitter.com/chrisjavadev">
+        <img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Twitter3_colored_svg-48.png" alt="Twitter logo" />
+    </a>
+</div>
