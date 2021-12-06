@@ -23,6 +23,6 @@ public class Keplex4jApplicationRunner implements CommandLineRunner {
         List<Directory> recentlyAddedMovies = client.getRecentlyAdded("1");
         List<Directory> onDeck = client.getOnDeck();
         List<Directory> moviesOnDeck = client.getOnDeck("1");
-        List<Directory> searchHell = client.search("ass");
+        List<Directory> search = client.search("house of");
     }
 }
