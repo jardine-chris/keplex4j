@@ -1,6 +1,6 @@
 package com.keplux.keplex4j.components;
 
-import com.keplux.keplex4j.services.FilterUri;
+import com.keplux.keplex4j.utils.FilterUri;
 import com.keplux.keplex4j.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

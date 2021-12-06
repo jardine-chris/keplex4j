@@ -1,4 +1,4 @@
-package com.keplux.keplex4j.services;
+package com.keplux.keplex4j.utils;
 
 import lombok.Builder;
 import lombok.Getter;

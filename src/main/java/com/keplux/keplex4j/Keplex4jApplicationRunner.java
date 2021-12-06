@@ -2,7 +2,7 @@ package com.keplux.keplex4j;
 
 import com.keplux.keplex4j.components.Client;
 import com.keplux.keplex4j.components.Directory;
-import com.keplux.keplex4j.services.FilterUri;
+import com.keplux.keplex4j.utils.FilterUri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
