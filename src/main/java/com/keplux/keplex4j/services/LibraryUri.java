@@ -10,7 +10,8 @@ public enum LibraryUri {
     BASE ("/library"),
     SECTIONS ("/library/sections/"),
     RECENTLY_ADDED ("/library/recentlyAdded"),
-    ON_DECK ("/library/onDeck");
+    ON_DECK ("/library/onDeck"),
+    SEARCH ("/search");
 
     private final String uri;
 

@@ -5,14 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 /**
  * <p>A container holding the data necessary for connecting to your local Plex
@@ -61,6 +65,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 @NoArgsConstructor
 @Configuration
 public class ClientConfiguration {
+    protected final Log log = LogFactory.getLog(getClass());
+
     @Value("${plex.config.host}")
     private String host;
 
@@ -69,6 +75,17 @@ public class ClientConfiguration {
 
     @Value("${plex.config.token}")
     private String token;
+
+    /**
+     * Create custom filter for logging.
+     * @return The filter function.
+     */
+    private ExchangeFilterFunction logRequest() {
+        return (clientRequest, next) -> {
+            log.info(String.format("%s - %s", clientRequest.method(), clientRequest.url()));
+            return next.exchange(clientRequest);
+        };
+    }
 
     /**
      * <p>The basis of the {@code WebClient} is created here. It is managed
@@ -104,6 +121,7 @@ public class ClientConfiguration {
                 .baseUrl(String.format("http://%s:%s", host, port))
                 .defaultHeader(HttpHeaders.ACCEPT,
                         MediaType.APPLICATION_JSON_VALUE)
+                .filter(logRequest())
                 .build();
     }
 }
