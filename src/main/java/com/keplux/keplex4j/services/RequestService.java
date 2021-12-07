@@ -11,6 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.ClientResponse;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Objects;
@@ -38,60 +40,6 @@ public class RequestService {
 
     @Autowired
     private ClientConfiguration config;
-
-    /**
-     * Helper method to reduce code duplication.
-     *
-     * @param uri The location of the resource being requested.
-     * @return The response transformed into a POJO.
-     */
-    private Response directoryRequest(PlexUri uri) {
-        Response response = config.webClient()
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path(uri.get())
-                        .queryParam("X-Plex-Token", config.getToken())
-                        .build())
-                .retrieve()
-                .bodyToMono(Response.class)
-                .block();
-        logger.info(String.format("    Response: %s",
-                Objects.requireNonNull(response).getDirectory()));
-
-        return response;
-    }
-
-    private Response mediaRequest(PlexUri uri) {
-        Response response = config.webClient()
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path(uri.get())
-                        .queryParam("X-Plex-Token", config.getToken())
-                        .build())
-                .retrieve()
-                .bodyToMono(Response.class)
-                .block();
-        logger.info(String.format("    Response: %s",
-                Objects.requireNonNull(response).getMedia()));
-
-        return response;
-    }
-
-    private Response searchRequest(String query) {
-        Response response = config.webClient()
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path(LibraryUri.SEARCH.get())
-                        .queryParam("query", query)
-                        .queryParam("X-Plex-Token", config.getToken())
-                        .build())
-                .retrieve()
-                .bodyToMono(Response.class)
-                .block();
-        logger.info(String.format("    Response: %s",
-                Objects.requireNonNull(response).getMedia()));
-        return response;
-    }
 
     /**
      * Retrieve a list of directories in the base library resource.
@@ -205,5 +153,59 @@ public class RequestService {
         // Replace spaces with + for the Uri.
         Response res = searchRequest(query.replaceAll(" ", "+"));
         return res.getMedia();
+    }
+
+    /**
+     * Helper method to reduce code duplication.
+     *
+     * @param uri The location of the resource being requested.
+     * @return The response transformed into a POJO.
+     */
+    private Response directoryRequest(PlexUri uri) {
+        Response response = config.webClient()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(uri.get())
+                        .queryParam("X-Plex-Token", config.getToken())
+                        .build())
+                .retrieve()
+                .bodyToMono(Response.class)
+                .block();
+        logger.info(String.format("    Response: %s",
+                Objects.requireNonNull(response).getDirectory()));
+
+        return response;
+    }
+
+    private Response mediaRequest(PlexUri uri) {
+        Response response = config.webClient()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(uri.get())
+                        .queryParam("X-Plex-Token", config.getToken())
+                        .build())
+                .retrieve()
+                .bodyToMono(Response.class)
+                .block();
+        logger.info(String.format("    Response: %s",
+                Objects.requireNonNull(response).getMedia()));
+
+        return response;
+    }
+
+    private Response searchRequest(String query) {
+        Response response = config.webClient()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(LibraryUri.SEARCH.get())
+                        .queryParam("query", query)
+                        .queryParam("X-Plex-Token", config.getToken())
+                        .build())
+                .retrieve()
+                .bodyToMono(Response.class)
+                .block();
+        logger.info(String.format("    Response: %s",
+                Objects.requireNonNull(response).getMedia()));
+        return response;
     }
 }
