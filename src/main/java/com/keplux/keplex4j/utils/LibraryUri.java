@@ -7,11 +7,9 @@ package com.keplux.keplex4j.utils;
  * @version 0.1
  */
 public enum LibraryUri {
-    BASE ("/library"),
+    ALL ("/all"),
     SECTIONS ("/library/sections/"),
-    RECENTLY_ADDED ("/library/recentlyAdded"),
-    ON_DECK ("/library/onDeck"),
-    SEARCH ("/search");
+    RECENTLY_ADDED ("/recentlyAdded");
 
     private final String uri;
 

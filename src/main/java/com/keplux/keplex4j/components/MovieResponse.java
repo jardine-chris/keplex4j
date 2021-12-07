@@ -16,13 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonRootName("MediaContainer")
-public class Response {
+public class MovieResponse {
     @JsonProperty("size")
     private Integer size;
 
-    @JsonProperty("Directory")
-    private List<Directory> directory;
-
     @JsonProperty("Metadata")
-    private List<Media> media;
+    private List<Movie> movies;
 }
