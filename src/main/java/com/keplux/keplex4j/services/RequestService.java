@@ -1,6 +1,7 @@
 package com.keplux.keplex4j.services;
 
 import com.keplux.keplex4j.components.Directory;
+import com.keplux.keplex4j.components.Media;
 import com.keplux.keplex4j.components.Response;
 import com.keplux.keplex4j.config.ClientConfiguration;
 import com.keplux.keplex4j.utils.FilterUri;
@@ -44,7 +45,7 @@ public class RequestService {
      * @param uri The location of the resource being requested.
      * @return The response transformed into a POJO.
      */
-    private Response getRequest(PlexUri uri) {
+    private Response directoryRequest(PlexUri uri) {
         Response response = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
@@ -60,7 +61,23 @@ public class RequestService {
         return response;
     }
 
-    private Response getSearchRequest(String query) {
+    private Response mediaRequest(PlexUri uri) {
+        Response response = config.webClient()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(uri.get())
+                        .queryParam("X-Plex-Token", config.getToken())
+                        .build())
+                .retrieve()
+                .bodyToMono(Response.class)
+                .block();
+        logger.info(String.format("    Response: %s",
+                Objects.requireNonNull(response).getMedia()));
+
+        return response;
+    }
+
+    private Response searchRequest(String query) {
         Response response = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
@@ -72,7 +89,7 @@ public class RequestService {
                 .bodyToMono(Response.class)
                 .block();
         logger.info(String.format("    Response: %s",
-                Objects.requireNonNull(response).getDirectory()));
+                Objects.requireNonNull(response).getMedia()));
         return response;
     }
 
@@ -85,7 +102,7 @@ public class RequestService {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.BASE)
                 .build();
-        return getRequest(uri).getDirectory();
+        return directoryRequest(uri).getDirectory();
     }
 
     /**
@@ -100,7 +117,7 @@ public class RequestService {
                 .libraryUri(LibraryUri.SECTIONS)
                 .key(key)
                 .build();
-        return getRequest(uri).getDirectory();
+        return directoryRequest(uri).getDirectory();
     }
 
     /**
@@ -111,14 +128,14 @@ public class RequestService {
      * @param filterUri The filter being applied to the section results.
      * @return A filtered directory of resources in the specified section.
      */
-    public List<Directory> getSection(String key,
+    public List<Media> getSectionMedia(String key,
                                       FilterUri filterUri) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
                 .key(key)
                 .filterUri(filterUri)
                 .build();
-        return getRequest(uri).getDirectory();
+        return mediaRequest(uri).getMedia();
     }
 
     /**
@@ -129,11 +146,11 @@ public class RequestService {
      * @return A directory of resources that have been recently added to the
      * base library.
      */
-    public List<Directory> getRecentlyAdded() {
+    public List<Media> getRecentlyAdded() {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.RECENTLY_ADDED)
                 .build();
-        return getRequest(uri).getDirectory();
+        return mediaRequest(uri).getMedia();
     }
 
     /**
@@ -144,13 +161,13 @@ public class RequestService {
      * @return A directory of resources that have been recently added to the
      * specified section.
      */
-    public List<Directory> getRecentlyAdded(String key) {
+    public List<Media> getRecentlyAdded(String key) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
                 .key(key)
                 .filterUri(FilterUri.RECENTLY_ADDED)
                 .build();
-        return getRequest(uri).getDirectory();
+        return mediaRequest(uri).getMedia();
     }
 
     /**
@@ -159,11 +176,11 @@ public class RequestService {
      *
      * @return A directory of resources that are on deck in the base library.
      */
-    public List<Directory> getOnDeck() {
+    public List<Media> getOnDeck() {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.ON_DECK)
                 .build();
-        return getRequest(uri).getDirectory();
+        return mediaRequest(uri).getMedia();
     }
 
     /**
@@ -175,18 +192,18 @@ public class RequestService {
      * @return A directory of resources that are on deck in the specified
      * section.
      */
-    public List<Directory> getOnDeck(String key) {
+    public List<Media> getOnDeck(String key) {
         PlexUri uri = PlexUri.builder()
                 .libraryUri(LibraryUri.SECTIONS)
                 .key(key)
                 .filterUri(FilterUri.ON_DECK)
                 .build();
-        return getRequest(uri).getDirectory();
+        return mediaRequest(uri).getMedia();
     }
 
-    public List<Directory> search(String query) {
+    public List<Media> search(String query) {
         // Replace spaces with + for the Uri.
-        Response res = getSearchRequest(query.replaceAll(" ", "+"));
-        return res.getDirectory();
+        Response res = searchRequest(query.replaceAll(" ", "+"));
+        return res.getMedia();
     }
 }

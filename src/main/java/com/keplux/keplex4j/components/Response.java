@@ -1,6 +1,5 @@
 package com.keplux.keplex4j.components;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -22,6 +21,8 @@ public class Response {
     private Integer size;
 
     @JsonProperty("Directory")
-    @JsonAlias("Metadata")
     private List<Directory> directory;
+
+    @JsonProperty("Metadata")
+    private List<Media> media;
 }
