@@ -2,6 +2,7 @@ package com.keplux.keplex4j;
 
 import com.keplux.keplex4j.components.Client;
 import com.keplux.keplex4j.components.Directory;
+import com.keplux.keplex4j.components.Media;
 import com.keplux.keplex4j.utils.FilterUri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,11 +19,11 @@ public class Keplex4jApplicationRunner implements CommandLineRunner {
     public void run(String... args) {
         List<Directory> baseDirectory = client.getBaseDirectories();
         List<Directory> sectionDirectory = client.getSectionDirectories("1");
-        List<Directory> directory = client.getSection("1", FilterUri.NEWEST);
-        List<Directory> recentlyAdded = client.getRecentlyAdded();
-        List<Directory> recentlyAddedMovies = client.getRecentlyAdded("1");
-        List<Directory> onDeck = client.getOnDeck();
-        List<Directory> moviesOnDeck = client.getOnDeck("1");
-        List<Directory> search = client.search("house of");
+        List<Media> directory = client.getSectionMedia("1", FilterUri.NEWEST);
+        List<Media> recentlyAdded = client.getRecentlyAdded();
+        List<Media> recentlyAddedMovies = client.getRecentlyAdded("1");
+        List<Media> onDeck = client.getOnDeck();
+        List<Media> moviesOnDeck = client.getOnDeck("1");
+        List<Media> search = client.search("house of");
     }
 }

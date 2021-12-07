@@ -26,28 +26,28 @@ public class Client {
         return requestService.getSectionDirectories(key);
     }
 
-    public List<Directory> getSection(String key,
+    public List<Media> getSectionMedia(String key,
                                               FilterUri filterUri) {
-        return requestService.getSection(key, filterUri);
+        return requestService.getSectionMedia(key, filterUri);
     }
 
-    public List<Directory> getRecentlyAdded() {
+    public List<Media> getRecentlyAdded() {
         return requestService.getRecentlyAdded();
     }
 
-    public List<Directory> getRecentlyAdded(String key) {
+    public List<Media> getRecentlyAdded(String key) {
         return requestService.getRecentlyAdded(key);
     }
 
-    public List<Directory> getOnDeck() {
+    public List<Media> getOnDeck() {
         return requestService.getOnDeck();
     }
 
-    public List<Directory> getOnDeck(String key) {
+    public List<Media> getOnDeck(String key) {
         return requestService.getOnDeck(key);
     }
 
-    public List<Directory> search(String query) {
+    public List<Media> search(String query) {
         return requestService.search(query);
     }
 }
