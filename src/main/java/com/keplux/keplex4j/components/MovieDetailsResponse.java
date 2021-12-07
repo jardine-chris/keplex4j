@@ -10,15 +10,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * {Description}
+ *
+ * @author Chris Jardine
+ * @version 0.1
+ */
 @Service
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonRootName("MediaContainer")
-public class MovieResponse {
-    private Integer size;
+public class MovieDetailsResponse {
 
     @JsonProperty("Metadata")
-    private List<Movie> movies;
+    private List<MovieDetails> movieDetails;
+
+    public MovieDetails getMovieDetails() {
+        return movieDetails.get(0);
+    }
 }

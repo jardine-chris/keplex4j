@@ -54,4 +54,8 @@ public class Client {
     public List<Movie> getMovies(String sectionId) {
         return requestService.getMoviesBySectionId(sectionId);
     }
+
+    public MovieDetails movieDetails(Movie movie) {
+        return requestService.getMovieDetails(movie.getKey());
+    }
 }

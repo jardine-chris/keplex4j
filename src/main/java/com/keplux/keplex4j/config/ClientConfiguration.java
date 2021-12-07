@@ -114,7 +114,7 @@ public class ClientConfiguration {
                 .codecs(configurer -> configurer.defaultCodecs()
                         .jackson2JsonDecoder(new Jackson2JsonDecoder(mapper)))
                 .codecs(configurer -> configurer.defaultCodecs()
-                        .maxInMemorySize(100 * 100 * 1024))
+                        .maxInMemorySize(10 * 1000 * 1024)) // 10MB
                 .build();
 
         // Build the custom WebClient.

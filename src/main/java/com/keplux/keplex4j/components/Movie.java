@@ -14,15 +14,9 @@ import org.springframework.stereotype.Component;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Component
 public class Movie {
+    private String key;
     private String title;
-    private String tagline;
-    private String summary;
-    private String contentRating;
-    private Integer year;
-    private String studio;
-    private Integer duration;
 }

@@ -1,9 +1,6 @@
 package com.keplux.keplex4j.services;
 
-import com.keplux.keplex4j.components.Directory;
-import com.keplux.keplex4j.components.Media;
-import com.keplux.keplex4j.components.Movie;
-import com.keplux.keplex4j.components.MovieResponse;
+import com.keplux.keplex4j.components.*;
 import com.keplux.keplex4j.config.ClientConfiguration;
 import com.keplux.keplex4j.utils.FilterUri;
 import com.keplux.keplex4j.utils.LibraryUri;
@@ -51,10 +48,23 @@ public class RequestService {
                 .retrieve()
                 .bodyToMono(MovieResponse.class)
                 .block();
-        logger.info(String.format("    Response: %s",
-                Objects.requireNonNull(res).getMovies()));
+//        logger.info(String.format("    Response: %s",
+//                Objects.requireNonNull(res).getMovies()));
 
         return res.getMovies();
+    }
+
+    public MovieDetails getMovieDetails(String key) {
+        MovieDetailsResponse res = config.webClient()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(key)
+                        .queryParam("X-Plex-Token", config.getToken())
+                        .build())
+                .retrieve()
+                .bodyToMono(MovieDetailsResponse.class)
+                .block();
+        return res.getMovieDetails();
     }
 
 //    /**

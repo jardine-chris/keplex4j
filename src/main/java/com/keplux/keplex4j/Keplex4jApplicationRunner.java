@@ -28,5 +28,7 @@ public class Keplex4jApplicationRunner implements CommandLineRunner {
 //        List<Media> search = client.search("house of");
 
         List<Movie> moviesFromSection = client.getMovies("1");
+        Movie movie = moviesFromSection.get(0);
+        System.out.println(client.movieDetails(movie));
     }
 }
