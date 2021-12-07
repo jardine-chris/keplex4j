@@ -93,14 +93,14 @@ At this point, we can now make requests to our server through `localhost:8080/ap
     <img src="https://i.imgur.com/QXdyHgz.png" alt="Keplux logo" width="50%" height="auto" /><br />
     <hr />
     <a href="https://www.linkedin.com/in/chris-jardine/">
-        <img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-48.png" alt="LinkedIn logo" />
+        <img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-128.png" alt="LinkedIn logo" width="48" height="48" />
     </a>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <a href="https://github.com/jardine-chris">
-        <img src="https://cdn4.iconfinder.com/data/icons/social-media-logos-6/512/71-github-48.png" alt="GitHub logo" />
+        <img src="https://cdn4.iconfinder.com/data/icons/social-media-logos-6/512/71-github-128.png" alt="GitHub logo" width="48" height="48" />
     </a>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <a href="https://twitter.com/chrisjavadev">
-        <img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Twitter3_colored_svg-48.png" alt="Twitter logo" />
+        <img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Twitter3_colored_svg-128.png" alt="Twitter logo" width="48" height="48" />
     </a>
 </div>
