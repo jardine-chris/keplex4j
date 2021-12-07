@@ -113,6 +113,8 @@ public class ClientConfiguration {
         ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
                 .codecs(configurer -> configurer.defaultCodecs()
                         .jackson2JsonDecoder(new Jackson2JsonDecoder(mapper)))
+                .codecs(configurer -> configurer.defaultCodecs()
+                        .maxInMemorySize(100 * 100 * 1024))
                 .build();
 
         // Build the custom WebClient.

@@ -41,7 +41,7 @@ public class RequestService {
     private ClientConfiguration config;
 
     public List<Movie> getMoviesBySectionId(String sectionId) {
-        String uri = String.format("%s%s%s", LibraryUri.SECTIONS.get(), sectionId, LibraryUri.RECENTLY_ADDED.get());
+        String uri = String.format("%s%s%s", LibraryUri.SECTIONS.get(), sectionId, LibraryUri.ALL.get());
         MovieResponse res = config.webClient()
                 .get()
                 .uri(uriBuilder -> uriBuilder
