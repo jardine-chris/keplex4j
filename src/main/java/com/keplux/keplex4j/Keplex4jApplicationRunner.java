@@ -1,9 +1,6 @@
 package com.keplux.keplex4j;
 
-import com.keplux.keplex4j.components.Client;
-import com.keplux.keplex4j.components.Directory;
-import com.keplux.keplex4j.components.Media;
-import com.keplux.keplex4j.components.Movie;
+import com.keplux.keplex4j.components.*;
 import com.keplux.keplex4j.utils.FilterUri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,8 +24,9 @@ public class Keplex4jApplicationRunner implements CommandLineRunner {
 //        List<Media> moviesOnDeck = client.getOnDeck("1");
 //        List<Media> search = client.search("house of");
 
-        List<Movie> moviesFromSection = client.getMovies("1");
+        List<Movie> moviesFromSection = client.getMovies("2");
         Movie movie = moviesFromSection.get(0);
-        System.out.println(client.movieDetails(movie));
+        MovieDetails details = client.movieDetails(movie);
+        System.out.println(details.getDirectors());
     }
 }
